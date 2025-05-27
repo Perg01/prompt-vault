@@ -1,5 +1,5 @@
 // src/lib/db.ts
-import { PrismaClient } from "../generated/prisma"; // หรือ from '@prisma/client' if using default output
+import { PrismaClient } from "../generated/prisma"; //  from '@prisma/client' if using default output
 
 // This explicit type declaration for globalThis is often more reliable.
 const globalForPrisma = globalThis as unknown as {

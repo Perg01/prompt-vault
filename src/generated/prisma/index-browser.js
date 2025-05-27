@@ -128,6 +128,15 @@ exports.Prisma.PromptScalarFieldEnum = {
   tags: 'tags',
   isPublic: 'isPublic',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  folderId: 'folderId'
+};
+
+exports.Prisma.FolderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
@@ -141,9 +150,15 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  Prompt: 'Prompt'
+  Prompt: 'Prompt',
+  Folder: 'Folder'
 };
 
 /**
