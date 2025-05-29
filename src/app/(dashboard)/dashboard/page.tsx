@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server"; // to get the userId on the server
 import { redirect } from "next/navigation";
 import prisma from "@/src/lib/db";
 import Link from "next/link";
+import CreateFolderForm from "@/src/components/folders/CreateFolderForm";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
@@ -23,18 +24,28 @@ export default async function DashboardPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold mb-6">Your Prompts</h1>
+        <h1 className="text-3xl font-bold mb-6">Your Prompts & Folders</h1>
         <Link
           href="/dashboard/prompts/new"
           className="bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
         >
-          Create New Prompt
+          Save New Chat
         </Link>
       </div>
+
+      <div className="mb-8">
+        <CreateFolderForm />
+      </div>
+
+      <h2 className="text-2xl font-semibold mb-4">Your Folders</h2>
+      {/* Render your folders here (Placeholder)*/}
+      <p className="text-gray-500">Folder listing will go here.</p>
+
+      <h2 className="text-2xl font-semibold mb-4 mt-8">Unfiled Chats</h2>
       {prompts.length === 0 ? (
         <p>
-          You have not created any prompts yet. Click &quot;Create New
-          Prompt&quot; to get started.
+          You have not created any prompts yet. Click &quot;Save New Chat&quot;
+          to get started.
         </p>
       ) : (
         <ul className="space-y-4">
