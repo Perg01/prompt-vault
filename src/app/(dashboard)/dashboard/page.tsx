@@ -34,7 +34,7 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div>
+    <div className="bg-gray-900 text-white p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold mb-6">Your Vault</h1>
         <Link
@@ -62,10 +62,14 @@ export default async function DashboardPage() {
               {folders.map((folder) => (
                 <li
                   key={folder.id}
-                  className="p-3 border rounded-lg shadow-sm hover:bg-gray-50 flex justify-between items-center"
+                  className="p-3 border rounded-lg shadow-sm hover:bg-gray-700 flex justify-between items-center"
                 >
-                  {/* We'll make this a link later to navigate to the folder's content  */}
-                  <span className="text-lg">{folder.name}</span>
+                  <Link
+                    href={`/dashboard/folders/${folder.id}`}
+                    className="text-lg hover:underline"
+                  >
+                    {folder.name}
+                  </Link>
                   {/* Placeholder for Rename/Delete folder buttons */}
                   <div className="space-x-2">
                     <button className="text-xs text-blue-500 hover:underline">
