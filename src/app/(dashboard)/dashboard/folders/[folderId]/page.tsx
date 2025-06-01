@@ -45,10 +45,12 @@ export default async function FolderPage({ params }: FolderPageProps) {
         </Link>
       </div>
       <h1 className="text-3xl font-bold mb-1">Folder: {folder.name}</h1>
-      <p>Created on: {new Date(folder.createdAt).toLocaleDateString()}</p>
+      <p className="text-sm text-gray-600">
+        Created on: {new Date(folder.createdAt).toLocaleDateString()}
+      </p>
 
       {folder.prompts.length === 0 ? (
-        <p>Folder is empty. Save new chats to this folder.</p>
+        <p className="mt-6">Folder is empty. Save new chats to this folder.</p>
       ) : (
         <>
           <h2 className="text-2xl font-semibold mb-4">Chats in this folder</h2>
