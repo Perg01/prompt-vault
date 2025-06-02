@@ -44,7 +44,7 @@ export default async function FolderPage({ params }: FolderPageProps) {
           &larr; Back to Dashboard
         </Link>
       </div>
-      <h1 className="text-3xl font-bold mb-1">Folder: {folder.name}</h1>
+      <h1 className="text-3xl font-bold mb-1"> {folder.name}</h1>
       <p className="text-sm text-gray-600">
         Created on: {new Date(folder.createdAt).toLocaleDateString()}
       </p>

@@ -3,8 +3,9 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import prisma from "../db";
-
+import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 type CreateFolderResult = {
   success: boolean;
@@ -76,6 +77,100 @@ export async function createFolder(
     return {
       success: false,
       message: "Failed to create folder. Please try again.",
+    };
+  }
+}
+
+type RenameFolderResult = {
+  success: boolean;
+  message?: string;
+  folder?: { id: string; name: string };
+};
+
+export async function renameFolder(
+  folderId: string,
+  newName: string
+): Promise<RenameFolderResult> {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return { success: false, message: "User not authenticated." };
+  }
+
+  const trimmedNewName = newName.trim();
+
+  if (!folderId) {
+    return { success: false, message: "Folder ID is required." };
+  }
+
+  if (!trimmedNewName) {
+    return { success: false, message: "Folder name cannot be empty." };
+  }
+
+  try {
+    // Check if the folder exists and also belongs to the same user
+    const folderToRename = await prisma.folder.findUnique({
+      where: {
+        id: folderId,
+        userId: userId,
+      },
+    });
+
+    if (!folderToRename) {
+      return { success: false, message: "Folder not found or access denied." };
+    }
+
+    // Check if the new folder name already exists for this user
+    if (trimmedNewName.toLowerCase() !== folderToRename.name.toLowerCase()) {
+      const existingFolderWithNewName = await prisma.folder.findFirst({
+        where: {
+          userId: userId,
+          name: trimmedNewName,
+          id: { not: folderId }, // Exclude the current folder from check
+        },
+      });
+
+      if (existingFolderWithNewName) {
+        return {
+          success: false,
+          message: `A folder named "${trimmedNewName}" already exists`,
+        };
+      }
+    }
+
+    // finally update the folder name
+    const updatedFolder = await prisma.folder.update({
+      where: {
+        id: folderId,
+      },
+      data: {
+        name: trimmedNewName,
+      },
+    });
+
+    revalidatePath("/dashboard");
+    revalidatePath(`/dashboard/folders/${folderId}`);
+
+    return {
+      success: true,
+      message: "Folder renamed successfully!",
+      folder: { id: updatedFolder.id, name: updatedFolder.name },
+    };
+  } catch (error) {
+    console.error("Error renaming folder:", error);
+    if (error instanceof PrismaClientKnownRequestError) {
+      // Handle potential unique constraint violation if our manual check missed something (race condition, case sensitivity differences in DB vs. check)
+      if (error.code === "P2002") {
+        // Unique constraint failed
+        return {
+          success: false,
+          message: `A folder named "${trimmedNewName}" already exists.`,
+        };
+      }
+    }
+    return {
+      success: false,
+      message: "Failed to rename folder. Please try again.",
     };
   }
 }
