@@ -5,14 +5,14 @@ import prisma from "@/src/lib/db";
 
 // Next.js passes URL parameters to Server Components this way.
 type FolderPageProps = {
-  params: {
+  params: Promise<{
     folderId: string;
-  };
+  }>;
 };
 
 export default async function FolderPage({ params }: FolderPageProps) {
   const { userId } = await auth();
-  const { folderId } = params;
+  const { folderId } = await params;
 
   if (!userId) {
     redirect("/sign-in");
