@@ -81,6 +81,11 @@ export async function createFolder(
   }
 }
 
+type DeleteFolderResult = {
+  success: boolean;
+  message?: string;
+};
+
 type RenameFolderResult = {
   success: boolean;
   message?: string;
@@ -171,6 +176,51 @@ export async function renameFolder(
     return {
       success: false,
       message: "Failed to rename folder. Please try again.",
+    };
+  }
+}
+
+export async function deleteFolder(
+  folderId: string
+): Promise<DeleteFolderResult> {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return { success: false, message: "User not authenticated." };
+  }
+
+  if (!folderId) {
+    return { success: false, message: "Folder ID is required." };
+  }
+
+  try {
+    const folderToDelete = await prisma.folder.findUnique({
+      where: {
+        id: folderId,
+        userId: userId, // Ensure the folder belongs to the owner and not someone else
+      },
+    });
+
+    if (!folderToDelete) {
+      return { success: false, message: "Folder not found or access denied." };
+    }
+
+    await prisma.folder.delete({
+      where: {
+        id: folderId,
+      },
+    });
+
+    revalidatePath("/dashboard");
+    return {
+      success: true,
+      message: "Folder deleted successfully!",
+    };
+  } catch (error) {
+    console.error("Error deleting folder:", error);
+    return {
+      success: false,
+      message: "Failed to delete folder. Please try again.",
     };
   }
 }
