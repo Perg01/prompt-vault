@@ -13,10 +13,6 @@ export default async function DashboardPage() {
     // return <div>Sign in to view this page</div>;
   }
 
-  if (userId) {
-    redirect("/dashboard");
-  }
-
   // Fetches folder for the current user
   const folders = await prisma.folder.findMany({
     where: {
