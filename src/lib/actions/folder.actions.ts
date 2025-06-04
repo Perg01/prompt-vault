@@ -81,11 +81,6 @@ export async function createFolder(
   }
 }
 
-type DeleteFolderResult = {
-  success: boolean;
-  message?: string;
-};
-
 type RenameFolderResult = {
   success: boolean;
   message?: string;
@@ -179,6 +174,11 @@ export async function renameFolder(
     };
   }
 }
+
+type DeleteFolderResult = {
+  success: boolean;
+  message?: string;
+};
 
 export async function deleteFolder(
   folderId: string
