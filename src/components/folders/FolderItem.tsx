@@ -189,7 +189,7 @@ export default function FolderItem({ folder }: FolderItemProps) {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-5 hover:text-red-700 text-red-500"
+                className="size-5 hover:text-red-300 text-red-500"
               >
                 <path
                   strokeLinecap="round"

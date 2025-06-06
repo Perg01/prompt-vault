@@ -68,3 +68,5 @@ export async function saveChat(
     };
   }
 }
+
+export default saveChat;

@@ -53,12 +53,12 @@ export default async function FolderPage({ params }: FolderPageProps) {
         <p className="mt-6">Folder is empty. Save new chats to this folder.</p>
       ) : (
         <>
-          <h2 className="text-2xl font-semibold mb-4">Chats in this folder</h2>
-          <ul className="space-y-4">
+          {/* <h2 className="text-2xl font-semibold mb-4">Chats in this folder</h2> */}
+          <ul className="space-y-4 mt-6">
             {folder.prompts.map((prompt) => (
               <li key={prompt.id} className="p-4 border rounded-lg shadow">
                 <h3 className="text-lg font-semibold">{prompt.title}</h3>
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-gray-500 mt-1">
                   {prompt.content.substring(0, 100)}
                   {prompt.content.length > 100 ? "..." : ""}
                 </p>
