@@ -3,12 +3,15 @@
 import { useState, useTransition } from "react";
 import { createFolder } from "@/src/lib/actions/folder.actions";
 import { useRouter } from "next/navigation";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import { Label } from "@/src/components/ui/label";
+import prisma from "@/src/lib/db";
 
 export default function CreateFolderForm() {
   const [folderName, setFolderName] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,37 +40,28 @@ export default function CreateFolderForm() {
       className="mb-6 p-4 border rounded-lg shadow-sm"
     >
       <h2 className="text-xl font-semibold mb-3">Create New Folder</h2>
-      <div>
-        <label
-          htmlFor="folderName"
-          className="block text-sm font-medium text-gray-700 sr-only"
-        >
-          Folder Name
-        </label>
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="folderName">Folder Name</Label>
+        <Input
           type="text"
           id="folderName"
+          name="folderName"
           value={folderName}
           onChange={(e) => setFolderName(e.target.value)}
-          placeholder="Enter folder name"
+          placeholder="e.g., Marketing Ideas"
           required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           disabled={isPending}
         />
       </div>
-      <button
-        type="submit"
-        className="mt-3 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300"
-        disabled={isPending}
-      >
+
+      <Button type="submit" className="mt-3 w-full" disabled={isPending}>
         {isPending ? "Creating..." : "Create Folder"}
-      </button>
+      </Button>
+
       {message && (
         <p
           className={`mt-3 text-sm ${
-            message.startsWith("Failed") ||
-            message.startsWith("A folder named") ||
-            message.startsWith("Folder name cannot")
+            message.includes("Failed") || message.includes("already exists")
               ? "text-red-600"
               : "text-green-600"
           }`}

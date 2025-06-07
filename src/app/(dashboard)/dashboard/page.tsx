@@ -4,6 +4,7 @@ import prisma from "@/src/lib/db";
 import Link from "next/link";
 import CreateFolderForm from "@/src/components/folders/CreateFolderForm";
 import FolderItem from "@/src/components/folders/FolderItem";
+import { Button } from "@/src/components/ui/button";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
@@ -35,15 +36,13 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div className="bg-gray-900 text-white p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold mb-6">Your Vault</h1>
-        <Link
-          href="/dashboard/prompts/new"
-          className="bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
-        >
-          Save New Chat
-        </Link>
+    <div>
+      <div className="flex justify-end mb-6">
+        {/* <h1 className="text-3xl font-bold mb-6">Your Vault</h1> */}
+
+        <Button className="self-end">
+          <Link href="/dashboard/prompts/new">Save New Chat</Link>
+        </Button>
       </div>
 
       <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6">
