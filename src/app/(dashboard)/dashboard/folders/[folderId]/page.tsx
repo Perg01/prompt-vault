@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import prisma from "@/src/lib/db";
+import { Button } from "@/src/components/ui/button";
 
 // Next.js passes URL parameters to Server Components this way.
 type FolderPageProps = {
@@ -80,12 +81,15 @@ export default async function FolderPage({ params }: FolderPageProps) {
       )}
       {/* Link to save a new chat, potentially pre-filling this folder */}
       <div className="mt-8">
-        <Link
-          href={`/dashboard/prompts/new?folderId=${folder.id}`}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Save New Chat to &quot;{folder.name}&quot;
-        </Link>
+        <Button>
+          <Link
+            href={`/dashboard/prompts/new?folderId=${folder.id}`}
+            // className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            {/* Save New Chat to &quot;{folder.name}&quot; */}
+            Add to this Folder
+          </Link>
+        </Button>
       </div>
     </div>
   );
