@@ -5,6 +5,13 @@ import Link from "next/link";
 import CreateFolderForm from "@/src/components/folders/CreateFolderForm";
 import FolderItem from "@/src/components/folders/FolderItem";
 import { Button } from "@/src/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
@@ -71,26 +78,33 @@ export default async function DashboardPage() {
 
       <h2 className="text-2xl font-semibold mb-4 mt-8">Unfiled Chats</h2>
       {unfiledPrompts.length === 0 ? (
-        <p className="text-gray-500">No unfiled chats.</p>
+        <p className="text-muted-foreground">No unfiled chats.</p>
       ) : (
         <ul className="space-y-4">
           {unfiledPrompts.map((prompt) => (
-            <li key={prompt.id} className="p-4 border rounded-lg shadow">
-              <h2 className="text-lg font-semibold">{prompt.title}</h2>
-              <p className="text-sm text-gray-600 mt-1">
-                {prompt.content.substring(0, 100)}
-                {prompt.content.length > 100 ? "..." : ""}
-              </p>
-              <div className="mt-2">
-                {prompt.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
+            <li key={prompt.id}>
+              <Link href={`/dashboard/prompts/${prompt.id}`} className="block">
+                <Card className="hover:border-primary transition-colors flex flex-col h-full p-2">
+                  <CardHeader className="p-0 px-1">
+                    <CardTitle>{prompt.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0 px-1 flex-grow">
+                    <p className="text-sm text-muted-foreground line-clamp-3">
+                      {prompt.content}
+                    </p>
+                  </CardContent>
+                  <CardFooter className="p-0 flex flex-wrap gap-1">
+                    {prompt.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="bg-secondary text-secondary-foreground rounded-full px-2 py-1 text-xs"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </CardFooter>
+                </Card>
+              </Link>
             </li>
           ))}
         </ul>

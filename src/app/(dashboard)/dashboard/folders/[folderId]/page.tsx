@@ -3,6 +3,13 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import prisma from "@/src/lib/db";
 import { Button } from "@/src/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 
 // Next.js passes URL parameters to Server Components this way.
 type FolderPageProps = {
@@ -46,38 +53,40 @@ export default async function FolderPage({ params }: FolderPageProps) {
         </Link>
       </div>
       <h1 className="text-3xl font-bold mb-1"> {folder.name}</h1>
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-gray-600 mb-3">
         Created on: {new Date(folder.createdAt).toLocaleDateString()}
       </p>
 
       {folder.prompts.length === 0 ? (
         <p className="mt-6">Folder is empty. Save new chats to this folder.</p>
       ) : (
-        <>
-          {/* <h2 className="text-2xl font-semibold mb-4">Chats in this folder</h2> */}
-          <ul className="space-y-4 mt-6">
-            {folder.prompts.map((prompt) => (
-              <li key={prompt.id} className="p-4 border rounded-lg shadow">
-                <h3 className="text-lg font-semibold">{prompt.title}</h3>
-                <p className="text-sm text-gray-500 mt-1">
-                  {prompt.content.substring(0, 100)}
-                  {prompt.content.length > 100 ? "..." : ""}
-                </p>
-                <div className="mt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+          {folder.prompts.map((prompt) => (
+            // Wrap the Card with a Link component
+            <Link href={`/dashboard/prompts/${prompt.id}`} key={prompt.id}>
+              <Card className="flex flex-col h-full hover:border-primary transition-colors p-2">
+                <CardHeader className="p-0 px-1">
+                  <CardTitle>{prompt.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0 px-1 flex-grow">
+                  <p className="text-sm text-muted-foreground line-clamp-3">
+                    {prompt.content}
+                  </p>
+                </CardContent>
+                <CardFooter className="p-0 flex flex-wrap gap-1">
                   {prompt.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-block bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-xs font-semibold mr-2 mb-2"
+                      className="bg-secondary text-secondary-foreground rounded-full px-2 py-1 text-xs"
                     >
                       #{tag}
                     </span>
                   ))}
-                </div>
-                {/* Placeholder for chat actions (view full, edit metadata, delete) */}
-              </li>
-            ))}
-          </ul>
-        </>
+                </CardFooter>
+              </Card>
+            </Link>
+          ))}
+        </div>
       )}
       {/* Link to save a new chat, potentially pre-filling this folder */}
       <div className="mt-8">
