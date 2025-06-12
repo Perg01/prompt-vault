@@ -1,8 +1,10 @@
+// UI component that displays the full content of a single chat, and it also has the editing mode
+// to let you change that chat's title, tags, and folder
+
 "use client";
 
 import { useState, useTransition } from "react";
 import { updateChat } from "@/src/lib/actions/prompt.actions";
-import { useRouter } from "next/navigation";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
@@ -43,13 +45,12 @@ interface ChatEditFormProps {
 }
 
 export default function ChatEditForm({ prompt, folders }: ChatEditFormProps) {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isEditing, setIsEditing] = useState(false);
 
   const [title, setTitle] = useState(prompt.title);
   const [tags, setTags] = useState(prompt.tags.join(", "));
-  const [folderId, setFolderId] = useState(prompt.folderId || "");
+  const [folderId, setFolderId] = useState(prompt.folderId || "unfiled");
 
   const [message, setMessage] = useState<string | null>(null);
 
@@ -65,7 +66,7 @@ export default function ChatEditForm({ prompt, folders }: ChatEditFormProps) {
         promptId: prompt.id,
         title: title,
         tags: tagsArray,
-        folderId: folderId || null,
+        folderId: folderId === "unfiled" ? null : folderId,
       });
 
       if (result.success) {
@@ -117,7 +118,7 @@ export default function ChatEditForm({ prompt, folders }: ChatEditFormProps) {
                   <SelectValue placeholder="Select a folder" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Unfiled</SelectItem>
+                  <SelectItem value="unfiled">Unfiled</SelectItem>
                   {folders.map((folder) => (
                     <SelectItem key={folder.id} value={folder.id}>
                       {folder.name}
@@ -141,9 +142,9 @@ export default function ChatEditForm({ prompt, folders }: ChatEditFormProps) {
               Saved on: {new Date(prompt.createdAt).toLocaleDateString()}
             </div>
             <div className="flex flex-wrap gap-2">
-              {prompt.tags.map((tag) => (
+              {prompt.tags.map((tag, index) => (
                 <span
-                  key={tag}
+                  key={`${tag}-${index}`}
                   className="bg-secondary text-secondary-foreground rounded-full px-3 py-1 text-xs font-semibold"
                 >
                   #{tag}

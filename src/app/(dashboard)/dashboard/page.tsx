@@ -94,9 +94,9 @@ export default async function DashboardPage() {
                     </p>
                   </CardContent>
                   <CardFooter className="p-0 flex flex-wrap gap-1">
-                    {prompt.tags.map((tag) => (
+                    {prompt.tags.map((tag, index) => (
                       <span
-                        key={tag}
+                        key={`${tag}-${index}`}
                         className="bg-secondary text-secondary-foreground rounded-full px-2 py-1 text-xs"
                       >
                         #{tag}
