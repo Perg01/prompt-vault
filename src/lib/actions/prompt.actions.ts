@@ -5,6 +5,7 @@
 import { auth } from "@clerk/nextjs/server";
 import prisma from "../db";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 type SaveChatPayload = {
   title: string;
@@ -30,6 +31,62 @@ type UpdateChatResult = {
   success: boolean;
   message?: string;
 };
+
+type DeleteChatResult = {
+  success: boolean;
+  message?: string;
+};
+
+export async function deleteChat(promptId: string): Promise<DeleteChatResult> {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return { success: false, message: "User not authenticated." };
+  }
+
+  if (!promptId) {
+    return { success: false, message: "Prompt ID is required." };
+  }
+
+  try {
+    const promptToDelete = await prisma.prompt.findUnique({
+      where: {
+        id: promptId,
+        userId: userId, // Ensure the prompt belongs to the owner and not someone else
+      },
+      select: {
+        folderId: true,
+      },
+    });
+
+    if (!promptToDelete) {
+      return { success: false, message: "Prompt not found or access denied." };
+    }
+
+    await prisma.prompt.delete({
+      where: {
+        id: promptId,
+      },
+    });
+
+    // Refresh the cache where the prompt was deleted after successful deletion
+    revalidatePath("/dashboard");
+    if (promptToDelete.folderId) {
+      revalidatePath(`/dashboard/folder/${promptToDelete.folderId}`);
+    }
+
+    return {
+      success: true,
+      message: "Chat deleted successfully.",
+    };
+  } catch (error) {
+    console.error("Error deleting prompt:", error);
+    return {
+      success: false,
+      message: "Failed to delete prompt. Please try again.",
+    };
+  }
+}
 
 export async function updateChat(
   payload: UpdateChatPayload
@@ -166,5 +223,3 @@ export async function saveChat(
     };
   }
 }
-
-export default saveChat;

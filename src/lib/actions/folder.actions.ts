@@ -1,3 +1,4 @@
+//  This file contains the server actions for folder actions such as create, rename, and delete.
 "use server";
 
 import { auth } from "@clerk/nextjs/server";

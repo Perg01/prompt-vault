@@ -1,1 +1,1 @@
-- Change the "Rename" and "Delete" button's icons
+- Write test cases, testing backend functionalities.
