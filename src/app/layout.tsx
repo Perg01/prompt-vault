@@ -56,7 +56,6 @@ export default function RootLayout({
               <div>
                 <SignedOut>
                   <SignInButton mode="modal">
-                    {/* You can customize the button, e.g., by wrapping a custom button component */}
                     <button
                       style={{ marginRight: "0.5rem", padding: "0.5rem 1rem" }}
                     >
