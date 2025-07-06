@@ -13,7 +13,7 @@ type PromptPageProps = {
 
 export default async function PromptPage({ params }: PromptPageProps) {
   const { userId } = await auth();
-  const { promptId } = params;
+  const { promptId } = await params;
 
   if (!userId) {
     redirect("/sign-in");

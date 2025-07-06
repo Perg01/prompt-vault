@@ -1,1 +1,7 @@
 - Write test cases, testing backend functionalities.
+- UI/Ux changes:
+    - "Save to PromptVault" button should open up a new tab to the site and ask the user to login.
+    - On the PromptVault site, in the saveChat route, the edit title, and other edit buttons are too far apart.
+        Make the buttons closer and stick to the page as the user scrolls down.
+    - A new tab for PromptVault isn't being opened for users that don't already have one open.
+- refresh the list once a new prompt has been added. 

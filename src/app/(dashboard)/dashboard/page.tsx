@@ -12,13 +12,13 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
+import { UserButton } from "@clerk/nextjs";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
 
   if (!userId) {
     redirect("/sign-in");
-    // return <div>Sign in to view this page</div>;
   }
 
   // Fetches folder for the current user
