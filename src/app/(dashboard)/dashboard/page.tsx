@@ -18,7 +18,7 @@ export default async function DashboardPage() {
   const { userId } = await auth();
 
   if (!userId) {
-    redirect("/");
+    redirect("/sign-in");
   }
 
   // Fetches folder for the current user
