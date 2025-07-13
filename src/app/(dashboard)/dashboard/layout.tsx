@@ -13,7 +13,7 @@ export default async function DashboardLayout({
   // 2. If there is no userId, the user is not logged in.
   if (!userId) {
     // 3. Redirect them to the landing page.
-    redirect("/");
+    redirect("/sign-in");
   }
 
   // If the user is logged in, render the page they requested.
