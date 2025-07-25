@@ -21,10 +21,28 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isPublicRoute = createRouteMatcher(["/", "/sign-in(.*)", "/sign-up(.*)"]);
 
-const isProtectRoute = createRouteMatcher(["/dashboard(.*)", "/api(.*)"]);
+const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/api(.*)"]);
 
 export default clerkMiddleware((auth, req) => {
-  if (!isPublicRoute(req)) {
+  // if (!isPublicRoute(req)) {
+  //   auth.protect();
+  // }
+
+  const url = req.nextUrl.pathname;
+
+  // Debug logging (remove in production)
+  console.log("Middleware - URL:", url);
+  console.log("Middleware - Is Public Route:", isPublicRoute(req));
+  console.log("Middleware - Is Protected Route:", isProtectedRoute(req));
+
+  if (isPublicRoute(req)) {
+    console.log("Middleware - Allowing public route");
+    return;
+  }
+
+  // Protect dashboard routes
+  if (isProtectedRoute(req)) {
+    console.log("Middleware - Protecting protected route");
     auth.protect();
   }
 });
