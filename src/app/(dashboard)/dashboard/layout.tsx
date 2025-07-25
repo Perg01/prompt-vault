@@ -11,7 +11,7 @@ export default async function DashboardLayout({
 
   // If there is no userId, redirect to the dedicated sign-in page.
   if (!userId) {
-    redirect("/sign-in");
+    redirect("/");
   }
 
   // If the user is logged in, show the page.
