@@ -9,11 +9,9 @@ export default async function DashboardLayout({
 }) {
   const { userId } = await auth();
 
-  // If there is no userId, redirect to the dedicated sign-in page.
   if (!userId) {
-    redirect("/sign-in");
+    redirect("/");
   }
 
-  // If the user is logged in, show the page.
   return <>{children}</>;
 }
