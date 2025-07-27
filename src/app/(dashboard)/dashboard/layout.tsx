@@ -10,7 +10,9 @@ export default async function DashboardLayout({
   const { userId } = await auth();
 
   if (!userId) {
-    redirect("/sign-in");
+    // Temporarily comment out redirect for testing
+    // redirect("/");
+    return <div>Please sign in to access the dashboard</div>;
   }
 
   return <>{children}</>;
