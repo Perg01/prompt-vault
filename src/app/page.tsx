@@ -23,11 +23,11 @@ export default function LandingPage() {
         <SignedOut>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <SignInButton mode="modal">
-              <Button size="lg">Get Started - It&apos;s Free</Button>
+              <Button size="lg">Go to Vault</Button>
             </SignInButton>
             <SignUpButton mode="modal">
               <Button asChild size="lg" variant="secondary">
-                Log in
+                Get Started - It&apos;s Free
               </Button>
             </SignUpButton>
           </div>
