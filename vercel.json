@@ -4,9 +4,37 @@
   "installCommand": "npm ci --no-cache",
   "redirects": [
     {
-      "source": "/",
-      "destination": "/dashboard", 
-      "permanent": false
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "thepromptvault.vercel.app"
+        }
+      ],
+      "destination": "https://www.promptvault.link/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "prompt-vault-psi.vercel.app"
+        }
+      ],
+      "destination": "https://www.promptvault.link/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "promptvault.link"
+        }
+      ],
+      "destination": "https://www.promptvault.link/$1",
+      "permanent": true
     }
   ]
 }
