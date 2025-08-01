@@ -8,18 +8,7 @@
       "has": [
         {
           "type": "host",
-          "value": "thepromptvault.vercel.app"
-        }
-      ],
-      "destination": "https://www.promptvault.link/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "prompt-vault-psi.vercel.app"
+          "value": "(?!www\\.promptvault\\.link).*\\.vercel\\.app"
         }
       ],
       "destination": "https://www.promptvault.link/$1",
