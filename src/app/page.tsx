@@ -41,33 +41,36 @@ export default function LandingPage() {
         </SignedIn>
       </div>
 
-      <div className="mt-20 pt-10 border-t w-full max-w-4xl">
-        <h2 className="text-3xl font-bold tracking-tight mb-8">How It Works</h2>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-16">
-          {/* Step 1 */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-2xl">
+      {/* --- UPDATED "HOW IT WORKS" SECTION --- */}
+      <div className="mt-20 pt-10 border-t w-full max-w-5xl">
+        <h2 className="text-3xl font-bold tracking-tight mb-8">
+          How to Get Started
+        </h2>
+        {/* Using a 3-column grid for better alignment */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          {/* Step 1: Sign In */}
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-2xl">
               1
             </div>
             <div className="text-left">
-              <h3 className="font-semibold text-lg">Create an Account</h3>
+              <h3 className="font-semibold text-lg">Sign In to PromptVault</h3>
               <p className="text-muted-foreground">
-                Sign up for your free PromptVault account.
+                Create your account and keep the PromptVault tab open in your
+                browser.
               </p>
             </div>
           </div>
 
-          {/* Step 2 */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-2xl">
+          {/* Step 2: Install Extension */}
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-2xl">
               2
             </div>
             <div className="text-left">
               <h3 className="font-semibold text-lg">Install the Extension</h3>
               <Button asChild variant="outline" className="mt-1">
-                {/* IMPORTANT: Replace '#' with your actual Chrome Web Store link 
-                  once your extension is published! 
-                */}
+                {/* IMPORTANT: Remember to replace '#' with your actual Chrome Web Store link! */}
                 <a href="#" target="_blank" rel="noopener noreferrer">
                   Download from Chrome Store
                 </a>
