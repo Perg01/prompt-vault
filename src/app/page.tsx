@@ -40,6 +40,42 @@ export default function LandingPage() {
           </Button>
         </SignedIn>
       </div>
+
+      <div className="mt-20 pt-10 border-t w-full max-w-4xl">
+        <h2 className="text-3xl font-bold tracking-tight mb-8">How It Works</h2>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-16">
+          {/* Step 1 */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-2xl">
+              1
+            </div>
+            <div className="text-left">
+              <h3 className="font-semibold text-lg">Create an Account</h3>
+              <p className="text-muted-foreground">
+                Sign up for your free PromptVault account.
+              </p>
+            </div>
+          </div>
+
+          {/* Step 2 */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-2xl">
+              2
+            </div>
+            <div className="text-left">
+              <h3 className="font-semibold text-lg">Install the Extension</h3>
+              <Button asChild variant="outline" className="mt-1">
+                {/* IMPORTANT: Replace '#' with your actual Chrome Web Store link 
+                  once your extension is published! 
+                */}
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                  Download from Chrome Store
+                </a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
