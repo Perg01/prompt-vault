@@ -74,6 +74,20 @@ export default function LandingPage() {
               </Button>
             </div>
           </div>
+
+          {/* Step 3: Save Your Chats */}
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-2xl">
+              3
+            </div>
+            <div className="text-left">
+              <h3 className="font-semibold text-lg">Save from ChatGPT</h3>
+              <p className="text-muted-foreground">
+                Click the &quot;Save to PromptVault&quot; button in ChatGPT,
+                edit the details in the popup, and save!
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
