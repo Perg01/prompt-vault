@@ -71,7 +71,7 @@ export default function LandingPage() {
               <h3 className="font-semibold text-lg">Install the Extension</h3>
               <Button asChild variant="outline" className="mt-1">
                 <a
-                  href="#https://chromewebstore.google.com/detail/promptvault-saver/pcjicojgipiplahpgmealahcidgdpiil"
+                  href="https://chromewebstore.google.com/detail/promptvault-saver/pcjicojgipiplahpgmealahcidgdpiil"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
