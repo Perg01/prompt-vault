@@ -70,8 +70,11 @@ export default function LandingPage() {
             <div className="text-left">
               <h3 className="font-semibold text-lg">Install the Extension</h3>
               <Button asChild variant="outline" className="mt-1">
-                {/* IMPORTANT: Remember to replace '#' with your actual Chrome Web Store link! */}
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="#https://chromewebstore.google.com/detail/promptvault-saver/pcjicojgipiplahpgmealahcidgdpiil"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Download from Chrome Store
                 </a>
               </Button>
